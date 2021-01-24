@@ -1,6 +1,7 @@
 package com.mtjin.todoapp.data
 
 import androidx.room.TypeConverter
+import com.mtjin.todoapp.data.models.Priority
 
 class Converter {
 
