@@ -18,7 +18,7 @@
         android:inputType="textPersonName"
         android:paddingStart="24dp"
         android:paddingEnd="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEnd8Of="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
