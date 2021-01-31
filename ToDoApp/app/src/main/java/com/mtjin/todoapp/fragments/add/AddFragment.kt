@@ -11,6 +11,7 @@ import com.mtjin.todoapp.data.ToDoViewModel
 import com.mtjin.todoapp.data.models.ToDoData
 import com.mtjin.todoapp.fragments.ShareViewModel
 import kotlinx.android.synthetic.main.fragment_add.*
+import kotlinx.android.synthetic.main.fragment_add.view.*
 
 
 class AddFragment : Fragment() {
@@ -26,6 +27,7 @@ class AddFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_add, container, false)
         //메뉴 세팅
         setHasOptionsMenu(true)
+        view.priorities_spinner.onItemSelectedListener = mSharedViewModel.listener
         return view
     }
 
