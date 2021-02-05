@@ -35,13 +35,13 @@ class ListAdapter : RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
             Priority.HIGH -> holder.itemView.priority_indicator.setBackgroundColor(
                 ContextCompat.getColor(
                     holder.itemView.context,
-                    R.color.yellow
+                    R.color.red
                 )
             )
             Priority.MEDIUM -> holder.itemView.priority_indicator.setBackgroundColor(
                 ContextCompat.getColor(
                     holder.itemView.context,
-                    R.color.red
+                    R.color.yellow
                 )
             )
             Priority.LOW -> holder.itemView.priority_indicator.setBackgroundColor(
