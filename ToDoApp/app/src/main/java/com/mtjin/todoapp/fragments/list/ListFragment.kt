@@ -6,16 +6,18 @@ import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mtjin.todoapp.R
 import com.mtjin.todoapp.data.ToDoViewModel
+import com.mtjin.todoapp.fragments.ShareViewModel
 import kotlinx.android.synthetic.main.fragment_list.view.*
 
 class ListFragment : Fragment() {
     private val mToDoViewModel: ToDoViewModel by viewModels()
+    private val mShareViewModel: ShareViewModel by viewModels()
     private val adapter: ListAdapter by lazy { ListAdapter() }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -27,8 +29,13 @@ class ListFragment : Fragment() {
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireActivity())
 
-        mToDoViewModel.getAllData.observe(viewLifecycleOwner, Observer { data ->
+        mToDoViewModel.getAllData.observe(viewLifecycleOwner, { data ->
+            mShareViewModel.checkIfDatabaseEmpty(data)
             adapter.setData(data)
+        })
+
+        mShareViewModel.emptyDatabase.observe(viewLifecycleOwner, {
+            showEmptyDatabaseViews(it)
         })
 
 
@@ -42,6 +49,17 @@ class ListFragment : Fragment() {
         //메뉴 세팅
         setHasOptionsMenu(true)
         return view
+    }
+
+    private fun showEmptyDatabaseViews(emptyDatabase: Boolean) {
+        if (emptyDatabase) {
+            view?.no_data_imageView?.visibility = View.VISIBLE
+            view?.no_data_textView?.visibility = View.VISIBLE
+        } else {
+            view?.no_data_imageView?.visibility = View.INVISIBLE
+            view?.no_data_textView?.visibility = View.INVISIBLE
+        }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
