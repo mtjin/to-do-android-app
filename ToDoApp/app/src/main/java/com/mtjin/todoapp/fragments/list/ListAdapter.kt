@@ -24,7 +24,7 @@ class ListAdapter : RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.itemView.title_txt.text = dataList[position].title
-        holder.itemView.description_txt.text = dataList[position].descreiption
+        holder.itemView.description_txt.text = dataList[position].description
         holder.itemView.row_background.setOnClickListener {
             val action =
                 ListFragmentDirections.actionListFragmentToUpdateFragment(dataList[position])

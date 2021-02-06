@@ -12,9 +12,9 @@ import com.mtjin.todoapp.R
 import com.mtjin.todoapp.data.ToDoViewModel
 import com.mtjin.todoapp.data.models.Priority
 import com.mtjin.todoapp.data.models.ToDoData
+import com.mtjin.todoapp.databinding.FragmentUpdateBinding
 import com.mtjin.todoapp.fragments.SharedViewModel
 import kotlinx.android.synthetic.main.fragment_update.*
-import kotlinx.android.synthetic.main.fragment_update.view.*
 
 class UpdateFragment : Fragment() {
     private val args by navArgs<UpdateFragmentArgs>()
@@ -22,19 +22,19 @@ class UpdateFragment : Fragment() {
     private val mSharedViewModel: SharedViewModel by viewModels()
     private val mToDoViewModel: ToDoViewModel by viewModels()
 
+    private var _binding: FragmentUpdateBinding? = null
+    private val binding get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_update, container, false)
+        _binding = FragmentUpdateBinding.inflate(inflater, container, false)
+        binding.args    = args
         //메뉴세팅
         setHasOptionsMenu(true)
-
-        view.current_title_et.setText(args.currentItem.title)
-        view.current_description_et.setText(args.currentItem.descreiption)
-        view.current_priorities_spinner.setSelection(parsePriority(args.currentItem.priority))
-        view.current_priorities_spinner.onItemSelectedListener = mSharedViewModel.listener
+        //우선순위 스피너
+        binding.currentPrioritiesSpinner.onItemSelectedListener = mSharedViewModel.listener
         return view
     }
 
@@ -96,5 +96,10 @@ class UpdateFragment : Fragment() {
         } else {
             Toast.makeText(requireContext(), "Update Fail :(", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
