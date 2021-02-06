@@ -12,7 +12,7 @@ import com.mtjin.todoapp.R
 import com.mtjin.todoapp.data.models.Priority
 import com.mtjin.todoapp.data.models.ToDoData
 
-class ShareViewModel(application: Application) : AndroidViewModel(application) {
+class SharedViewModel(application: Application) : AndroidViewModel(application) {
 
     val emptyDatabase: MutableLiveData<Boolean> = MutableLiveData(true)
 

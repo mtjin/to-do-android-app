@@ -9,7 +9,7 @@ import androidx.navigation.fragment.findNavController
 import com.mtjin.todoapp.R
 import com.mtjin.todoapp.data.ToDoViewModel
 import com.mtjin.todoapp.data.models.ToDoData
-import com.mtjin.todoapp.fragments.ShareViewModel
+import com.mtjin.todoapp.fragments.SharedViewModel
 import kotlinx.android.synthetic.main.fragment_add.*
 import kotlinx.android.synthetic.main.fragment_add.view.*
 
@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.fragment_add.view.*
 class AddFragment : Fragment() {
 
     private val mToDoViewModel: ToDoViewModel by viewModels()
-    private val mSharedViewModel: ShareViewModel by viewModels()
+    private val mSharedViewModel: SharedViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
