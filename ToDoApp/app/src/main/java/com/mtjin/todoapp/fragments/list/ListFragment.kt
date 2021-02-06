@@ -17,6 +17,7 @@ import com.mtjin.todoapp.data.models.ToDoData
 import com.mtjin.todoapp.databinding.FragmentListBinding
 import com.mtjin.todoapp.fragments.SharedViewModel
 import com.mtjin.todoapp.fragments.list.adapter.ListAdapter
+import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 
 class ListFragment : Fragment() {
     private val mToDoViewModel: ToDoViewModel by viewModels()
@@ -53,7 +54,10 @@ class ListFragment : Fragment() {
         val recyclerView = binding.recyclerView
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireActivity())
-
+        //애니메이션 라이브러리
+        recyclerView.itemAnimator = SlideInUpAnimator().apply {
+            addDuration = 300
+        }
         // 왼쪽으로 스와이프 해서 삭제하는 동작
         swipeToDelete(recyclerView)
     }
