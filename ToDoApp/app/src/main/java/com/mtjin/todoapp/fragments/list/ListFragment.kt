@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.google.android.material.snackbar.Snackbar
@@ -19,6 +20,7 @@ import com.mtjin.todoapp.data.models.ToDoData
 import com.mtjin.todoapp.databinding.FragmentListBinding
 import com.mtjin.todoapp.fragments.SharedViewModel
 import com.mtjin.todoapp.fragments.list.adapter.ListAdapter
+import com.mtjin.todoapp.utils.PreferenceManager
 import com.mtjin.todoapp.utils.hideKeyboard
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 
@@ -28,6 +30,8 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
 
     private var _binding: FragmentListBinding? = null
     private val binding get() = _binding!!
+    private lateinit var pref: PreferenceManager
+    private lateinit var recyclerView: RecyclerView
 
     private val adapter: ListAdapter by lazy { ListAdapter() }
 
@@ -40,6 +44,8 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
         binding.lifecycleOwner = this
         binding.mSharedViewModel = mSharedViewModel
 
+        //SharePref
+        pref = PreferenceManager(requireActivity())
         //리사이클러뷰 세팅
         setupRecyclerView()
 
@@ -57,10 +63,15 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
     }
 
     private fun setupRecyclerView() {
-        val recyclerView = binding.recyclerView
+        recyclerView = binding.recyclerView
         recyclerView.adapter = adapter
-        recyclerView.layoutManager =
-            StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        if (getRecyclerViewLayoutManagerType() == 0) { //Grid
+            recyclerView.layoutManager =
+                StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        } else { //Linear
+            recyclerView.layoutManager =
+                LinearLayoutManager(requireActivity())
+        }
         //애니메이션 라이브러리
         recyclerView.itemAnimator = SlideInUpAnimator().apply {
             addDuration = 300
@@ -112,8 +123,25 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
             R.id.menu_priority_low -> mToDoViewModel.sortByLowPriority.observe(
                 this,
                 { adapter.setData(it) })
+            R.id.menu_grid -> saveRecyclerViewLayoutManagerType(0)
+            R.id.menu_linear -> saveRecyclerViewLayoutManagerType(1)
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun saveRecyclerViewLayoutManagerType(type: Int) {
+        pref.recyclerLayoutManagerType = type
+        if (getRecyclerViewLayoutManagerType() == 0) { //Grid
+            recyclerView.layoutManager =
+                StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        } else { //Linear
+            recyclerView.layoutManager =
+                LinearLayoutManager(requireActivity())
+        }
+    }
+
+    private fun getRecyclerViewLayoutManagerType(): Int {
+        return pref.recyclerLayoutManagerType
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {

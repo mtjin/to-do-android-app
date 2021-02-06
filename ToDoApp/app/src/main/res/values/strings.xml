@@ -13,6 +13,9 @@
     <string name="add">Add</string>
     <string name="save">Save</string>
     <string name="delete">Delete</string>
+    <string name="shown_by">Shown By</string>
+    <string name="linear">Linear</string>
+    <string name="grid">Grid</string>
 
     <string-array name="priorities">
         <item>High Priority</item>
