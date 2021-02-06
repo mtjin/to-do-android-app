@@ -19,6 +19,7 @@ import com.mtjin.todoapp.data.models.ToDoData
 import com.mtjin.todoapp.databinding.FragmentListBinding
 import com.mtjin.todoapp.fragments.SharedViewModel
 import com.mtjin.todoapp.fragments.list.adapter.ListAdapter
+import com.mtjin.todoapp.utils.hideKeyboard
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 
 class ListFragment : Fragment(), SearchView.OnQueryTextListener {
@@ -49,6 +50,9 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
 
         //메뉴 세팅
         setHasOptionsMenu(true)
+        //키보드 숨기기
+        hideKeyboard(requireActivity())
+
         return binding.root
     }
 
