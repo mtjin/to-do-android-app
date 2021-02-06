@@ -3,7 +3,7 @@
 
 
 
-2021-02-06 완성
+2021-02-06 수료
 후기 : https://youngest-programming.tistory.com/488
 
 
