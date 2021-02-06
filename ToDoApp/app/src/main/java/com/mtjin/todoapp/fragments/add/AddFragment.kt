@@ -57,11 +57,11 @@ class AddFragment : Fragment() {
                 mDescription
             )
             mToDoViewModel.insertData(newData)
-            Toast.makeText(requireContext(), "저장 성공", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Save Success", Toast.LENGTH_SHORT).show()
             //네비게이션 back
             findNavController().navigate(R.id.action_addFragment_to_listFragment)
         } else {
-            Toast.makeText(requireContext(), "저장 실패", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Save Fail", Toast.LENGTH_SHORT).show()
         }
     }
 

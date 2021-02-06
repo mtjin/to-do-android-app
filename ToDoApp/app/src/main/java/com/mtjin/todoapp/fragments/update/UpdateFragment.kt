@@ -30,12 +30,12 @@ class UpdateFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentUpdateBinding.inflate(inflater, container, false)
-        binding.args    = args
+        binding.args = args
         //메뉴세팅
         setHasOptionsMenu(true)
         //우선순위 스피너
         binding.currentPrioritiesSpinner.onItemSelectedListener = mSharedViewModel.listener
-        return view
+        return binding.root
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
