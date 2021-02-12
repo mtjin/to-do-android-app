@@ -2,6 +2,7 @@ package com.mtjin.todoapp.fragments
 
 import android.view.View
 import android.widget.Spinner
+import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
@@ -12,6 +13,7 @@ import com.mtjin.todoapp.R
 import com.mtjin.todoapp.data.models.Priority
 import com.mtjin.todoapp.data.models.ToDoData
 import com.mtjin.todoapp.fragments.list.ListFragmentDirections
+import com.mtjin.todoapp.utils.convertDateTimeMinute
 
 class BindingAdapters {
     companion object {
@@ -37,31 +39,49 @@ class BindingAdapters {
 
         @BindingAdapter("android:parsePriorityToInt")
         @JvmStatic
-        fun parsePriorityToInt(view: Spinner, priority: Priority){
-            when(priority){
-                Priority.HIGH -> { view.setSelection(0) }
-                Priority.MEDIUM -> { view.setSelection(1) }
-                Priority.LOW -> { view.setSelection(2) }
+        fun parsePriorityToInt(view: Spinner, priority: Priority) {
+            when (priority) {
+                Priority.HIGH -> {
+                    view.setSelection(0)
+                }
+                Priority.MEDIUM -> {
+                    view.setSelection(1)
+                }
+                Priority.LOW -> {
+                    view.setSelection(2)
+                }
             }
         }
 
         @BindingAdapter("android:parsePriorityColor")
         @JvmStatic
-        fun parsePriorityColor(cardView: CardView, priority: Priority){
-            when(priority){
-                Priority.HIGH -> { cardView.setCardBackgroundColor(cardView.context.getColor(R.color.red)) }
-                Priority.MEDIUM -> { cardView.setCardBackgroundColor(cardView.context.getColor(R.color.yellow)) }
-                Priority.LOW -> { cardView.setCardBackgroundColor(cardView.context.getColor(R.color.green)) }
+        fun parsePriorityColor(cardView: CardView, priority: Priority) {
+            when (priority) {
+                Priority.HIGH -> {
+                    cardView.setCardBackgroundColor(cardView.context.getColor(R.color.red))
+                }
+                Priority.MEDIUM -> {
+                    cardView.setCardBackgroundColor(cardView.context.getColor(R.color.yellow))
+                }
+                Priority.LOW -> {
+                    cardView.setCardBackgroundColor(cardView.context.getColor(R.color.green))
+                }
             }
         }
 
         @BindingAdapter("android:sendDataToUpdateFragment")
         @JvmStatic
-        fun sendDataToUpdateFragment(view: ConstraintLayout, currentItem: ToDoData){
+        fun sendDataToUpdateFragment(view: ConstraintLayout, currentItem: ToDoData) {
             view.setOnClickListener {
                 val action = ListFragmentDirections.actionListFragmentToUpdateFragment(currentItem)
                 view.findNavController().navigate(action)
             }
+        }
+
+        @BindingAdapter("android:parseTimestampToString")
+        @JvmStatic
+        fun parseTimestampToString(view: TextView, timestamp: Long) {
+            view.text = timestamp.convertDateTimeMinute()
         }
     }
 }

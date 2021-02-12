@@ -10,6 +10,7 @@ import com.mtjin.todoapp.R
 import com.mtjin.todoapp.data.ToDoViewModel
 import com.mtjin.todoapp.data.models.ToDoData
 import com.mtjin.todoapp.fragments.SharedViewModel
+import com.mtjin.todoapp.utils.getTimestamp
 import kotlinx.android.synthetic.main.fragment_add.*
 import kotlinx.android.synthetic.main.fragment_add.view.*
 
@@ -54,7 +55,8 @@ class AddFragment : Fragment() {
                 0,
                 mTitle,
                 mSharedViewModel.parsePriority(mPriority),
-                mDescription
+                mDescription,
+                getTimestamp()
             )
             mToDoViewModel.insertData(newData)
             Toast.makeText(requireContext(), "Save Success", Toast.LENGTH_SHORT).show()
